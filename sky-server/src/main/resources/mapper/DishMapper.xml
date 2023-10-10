@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.DishMapper">
 
+
     <select id="pageQuery" resultType="com.sky.vo.DishVO">
         SELECT d.*,c.`name` as categoryName FROM dish d LEFT JOIN category c on d.category_id = c.id
         <where>
@@ -11,8 +12,21 @@
             <if test="status != null">d.status = #{status}</if>
         </where>
     </select>
-    <select id="getByIdWithFlavor" resultType="com.sky.vo.DishVO">
-        SELECT d.*,f.id AS flavorId,f.dish_id,f.`name` AS flavorName,f.`value` from dish d LEFT JOIN dish_flavor f ON d.id = f.dish_id
-        where d.id = #{id}
-    </select>
+
+    <update id="update">
+        UPDATE dish
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
 </mapper>
