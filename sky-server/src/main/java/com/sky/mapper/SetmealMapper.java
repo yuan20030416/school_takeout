@@ -6,6 +6,9 @@ import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
+import com.sky.vo.SetmealVO;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -31,5 +34,19 @@ public interface SetmealMapper {
     @AutoFill(value = OperationType.UPDATE)
     void update(Setmeal setmeal);
 
-    Page pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    @AutoFill(OperationType.INSERT)
+    void insert(Setmeal setmeal);
+
+    @Select("select status from setmeal where id = #{setmealId}")
+    Integer getStatus(Long setmealId);
+
+    @Delete("delete from setmeal where id =#{setmealId}")
+    void deleteById(Long setmealId);
+
+    SetmealVO selectById(Long id);
+
+
 }

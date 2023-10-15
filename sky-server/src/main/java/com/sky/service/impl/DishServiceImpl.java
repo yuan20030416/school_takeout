@@ -74,11 +74,7 @@ public class DishServiceImpl implements DishService {
 
     }
 
-    @Override
-    public DishVO getByCategoryId(Long categoryId) {
-        DishVO dishVO = dishMapper.getByCategoryId(categoryId);
-        return dishVO;
-    }
+
 
     @Override
     public void startOrStop(Integer status, Long id) {
@@ -95,9 +91,14 @@ public class DishServiceImpl implements DishService {
             List<Long> setmeals = setmealDishMapper.getSetmealByDishId(dishIds);
             if (setmeals != null && setmeals.size() > 0)
                 for (Long setmealId : setmeals) {
+                    int setmealStatus = setmealMapper.getStatus(setmealId);
+                    if(setmealStatus == StatusConstant.DISABLE){
+                        //如果套餐本就是停售状态 直接返回
+                        return;
+                    }
                     Setmeal setmeal = Setmeal.builder()
                             .id(setmealId)
-                            .status(status)
+                            .status(StatusConstant.DISABLE)
                             .build();
                     setmealMapper.update(setmeal);
                 }
@@ -125,6 +126,12 @@ public class DishServiceImpl implements DishService {
             dishMapper.deletByIds(id);
             dishFlavorMapper.deleteFlavor(id);
         }
+    }
+
+    @Override
+    public List<Dish> getBycategoryId(Long categoryId) {
+        List<Dish> dishes = dishMapper.getBycategoryId(categoryId);
+        return dishes;
     }
 
 

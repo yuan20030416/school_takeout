@@ -18,9 +18,11 @@ public interface DishService {
 
     void update(DishDTO dishDTO);
 
-    DishVO getByCategoryId(Long categoryId);
+
 
     void startOrStop(Integer status,Long id);
 
     void deleteByIds(List<Long> ids);
+
+    List<Dish> getBycategoryId(Long categoryId);
 }
