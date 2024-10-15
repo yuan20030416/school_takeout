@@ -4,13 +4,13 @@ sky:
     host: localhost
     port: 3306
     database: sky_take_out
-    username: root
-    password: 123456
+    username: MySelf-username
+    password: MySelf-password
   alioss:
-    access-key-id: LTAI5tCaBfbgvCGihGkDxFHJ
-    access-key-secret: ynEeV1EmtiROrN4T3PUMEcYBYFIuwi
-    bucket-name: sky-take-out-yjs
-    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id:  MySelf-access-key-id
+    access-key-secret:  MySelf-access-key-secret
+    bucket-name:  MySelf-bucket-name
+    endpoint:  MySelf-endpoint
   redis:
     host: localhost
     port: 6379
